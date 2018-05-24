@@ -1,0 +1,32 @@
+{
+    "family": "partymanagementtask",
+    "containerDefinitions": [
+        {
+            "name": "partymanagementcontainer",
+            "image": "717904358179.dkr.ecr.us-east-2.amazonaws.com/partymanagementrepo:latest",
+            "cpu": 10,
+            "memory": 1024,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 0
+                }
+            ],
+			"environment": [
+			  {
+				"name": "DB_URL",
+				"value": "jdbc:mysql://bwce-mysql-1.c2dmq8roeosy.us-east-1.rds.amazonaws.com:3306/Party_Master"
+			  }
+			  {
+				"name": "DB_USER",
+				"value": "root"
+			  }
+      
+			],
+
+            "essential": true
+        }
+    ],
+        "taskRoleArn": "arn:aws:iam::717904358179:role/bwce-demorole",
+    "networkMode": "bridge"
+}

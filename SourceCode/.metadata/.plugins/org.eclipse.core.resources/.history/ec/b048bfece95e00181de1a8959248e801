@@ -1,0 +1,298 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0",
+    "title" : "Summary about the new REST service.",
+    "description" : "Summary about the new REST service."
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/party/{ssn}" : {
+      "get" : {
+        "description" : "",
+        "operationId" : "get-party",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "ssn",
+          "in" : "path",
+          "description" : "",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "a GetParty_response to be returned",
+            "schema" : {
+              "$ref" : "#/definitions/GetParty_response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Account" : {
+      "type" : "object",
+      "required" : [ "BalanceAmt", "AccountIds" ],
+      "properties" : {
+        "AccountIds" : {
+          "$ref" : "#/definitions/AccountIds"
+        },
+        "AccountName" : {
+          "type" : "string"
+        },
+        "BalanceAmt" : {
+          "type" : "integer"
+        },
+        "TotalLoanBalanceAmt" : {
+          "type" : "integer"
+        },
+        "BalanceEffectiveDate" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "InvestmentAllocations" : {
+          "$ref" : "#/definitions/InvestmentAllocations"
+        },
+        "TerminatingInd" : {
+          "type" : "boolean"
+        },
+        "InclusionInd" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "AccountPartyIdGroup" : {
+      "type" : "object",
+      "properties" : {
+        "AccountPartyId" : {
+          "type" : "string"
+        },
+        "AccountPartyIdTypeCode" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Thresholds" : {
+      "type" : "object",
+      "required" : [ "PFS_MaxBalanceAmt", "RCG_MinBalanceAmt", "RCG_MaxBalanceAmt", "PFS_MinBalanceAmt" ],
+      "properties" : {
+        "PFS_MinBalanceAmt" : {
+          "type" : "integer"
+        },
+        "PFS_MaxBalanceAmt" : {
+          "type" : "integer"
+        },
+        "RCG_MinBalanceAmt" : {
+          "type" : "integer"
+        },
+        "RCG_MaxBalanceAmt" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "AccountIds" : {
+      "type" : "object",
+      "properties" : {
+        "AccountIdGroup" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AccountIdGroup",
+            "uniqueItems" : false
+          }
+        }
+      }
+    },
+    "PartyIdGroup" : {
+      "type" : "object",
+      "required" : [ "PartyIdTypeCode", "PartyId" ],
+      "properties" : {
+        "PartyId" : {
+          "type" : "string"
+        },
+        "PartyIdTypeCode" : {
+          "type" : "string"
+        },
+        "PartyIdSystemCode" : {
+          "type" : "string"
+        }
+      }
+    },
+    "InvestmentAllocationsByMoneyType" : {
+      "type" : "object",
+      "properties" : {
+        "InvestmentAllocationsUpdateTS" : {
+          "type" : "string"
+        },
+        "MoneyTypeCode" : {
+          "type" : "string"
+        },
+        "InvestmentAllocation" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/InvestmentAllocation",
+            "uniqueItems" : false
+          }
+        }
+      }
+    },
+    "GetParty_response" : {
+      "type" : "object",
+      "properties" : {
+        "Party" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Party",
+            "uniqueItems" : false
+          }
+        },
+        "Accounts" : {
+          "$ref" : "#/definitions/Accounts"
+        },
+        "Thresholds" : {
+          "$ref" : "#/definitions/Thresholds"
+        }
+      }
+    },
+    "PartyIds" : {
+      "type" : "object",
+      "properties" : {
+        "PartyIdGroup" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PartyIdGroup",
+            "uniqueItems" : false
+          }
+        }
+      }
+    },
+    "InvestmentAllocation" : {
+      "type" : "object",
+      "properties" : {
+        "InvestmentOptionId" : {
+          "type" : "string"
+        },
+        "InvestmentOptionCusipNo" : {
+          "type" : "string"
+        },
+        "InvestmentOptionClassId" : {
+          "type" : "string"
+        },
+        "InvestmentOptionName" : {
+          "type" : "string"
+        },
+        "InvestmentAllocationPct" : {
+          "type" : "integer"
+        },
+        "InvestmentAllocationAmt" : {
+          "type" : "integer"
+        },
+        "InvestmentAllocationUpdateTS" : {
+          "type" : "string"
+        }
+      }
+    },
+    "InvestmentAllocations" : {
+      "type" : "object",
+      "properties" : {
+        "InvestmentAllocationsByMoneyType" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/InvestmentAllocationsByMoneyType",
+            "uniqueItems" : false
+          }
+        }
+      }
+    },
+    "Party" : {
+      "type" : "object",
+      "required" : [ "PartyTypeCode" ],
+      "properties" : {
+        "PartyTypeCode" : {
+          "type" : "string"
+        },
+        "GovtID" : {
+          "type" : "string"
+        },
+        "GovtIDTC" : {
+          "$ref" : "#/definitions/GovtIDTC"
+        },
+        "PartyIds" : {
+          "$ref" : "#/definitions/PartyIds"
+        },
+        "FullName" : {
+          "type" : "string"
+        },
+        "Person" : {
+          "$ref" : "#/definitions/Person"
+        }
+      }
+    },
+    "AccountIdGroup" : {
+      "type" : "object",
+      "required" : [ "AccountId", "AccountIdTypeCode" ],
+      "properties" : {
+        "AccountId" : {
+          "type" : "string"
+        },
+        "AccountIdTypeCode" : {
+          "type" : "string"
+        },
+        "AccountIdSystemCode" : {
+          "type" : "string"
+        },
+        "AccountPartyIdGroup" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AccountPartyIdGroup",
+            "uniqueItems" : false
+          }
+        }
+      }
+    },
+    "GovtIDTC" : {
+      "type" : "object",
+      "properties" : {
+        "tc" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "Person" : {
+      "type" : "object",
+      "required" : [ "FirstName", "LastName" ],
+      "properties" : {
+        "PersonId" : {
+          "type" : "string"
+        },
+        "FirstName" : {
+          "type" : "string"
+        },
+        "MiddleName" : {
+          "type" : "string"
+        },
+        "LastName" : {
+          "type" : "string"
+        },
+        "BirthDate" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Accounts" : {
+      "type" : "object",
+      "properties" : {
+        "Account" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Account",
+            "uniqueItems" : false
+          }
+        }
+      }
+    }
+  }
+}

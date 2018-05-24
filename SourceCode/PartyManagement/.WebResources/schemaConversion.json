@@ -1,0 +1,5 @@
+{"records": [{
+    "jsonSchemaLocation": "/PartyManagement/Service Descriptors/partymanagement.Party-Party.json",
+    "conversionType": "linked",
+    "xsdSchemaTargetNamespace": "http://www.cognizant.com/xsd/PartyManagement"
+}]}

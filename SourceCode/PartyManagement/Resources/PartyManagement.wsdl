@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.cognizant.com/xsd/PartyManagement" xmlns:ns2="http://www.cognizant.com/common/SOA_Header.xsd" xmlns:tns="http://www.cognizant.com/wsdl/PartyManagement" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.cognizant.com/wsdl/PartyManagement">
+    <import location="../Schemas/Header.xsd" namespace="http://www.cognizant.com/common/SOA_Header.xsd"/>
+    <import location="../Schemas/PartyManagement.xsd" namespace="http://www.cognizant.com/xsd/PartyManagement"/>
+    <message name="GetParty_Request">
+        <part element="ns:GetParty_request" name="request"/>
+    </message>
+    <message name="GetParty_Response">
+        <part element="ns:GetParty_response" name="response"/>
+    </message>
+    <message name="Header">
+        <part element="ns2:Header" name="Header"/>
+    </message>
+    <message name="GetParty_Fault">
+        <part element="ns:GetParty_Fault" name="Fault"/>
+    </message>
+    <portType name="PartyManagementPortType">
+        <operation name="GetParty">
+            <input message="tns:GetParty_Request"/>
+            <output message="tns:GetParty_Response"/>
+            <fault message="tns:GetParty_Fault" name="fault1"/>
+        </operation>
+    </portType>
+</definitions>

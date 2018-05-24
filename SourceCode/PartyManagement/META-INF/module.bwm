@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:BW="http://xsd.tns.tibco.com/amf/models/sca/implementationtype/BW" xmlns:PartyManagement="http://www.cognizant.com/wsdl/PartyManagement" xmlns:PartyManagement_1="http://www.cognizant.com/xsd/PartyManagement" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema" xmlns:axis2="http://xsd.tns.tibco.com/bw/models/binding/soap/axis2" xmlns:compositeext="http://schemas.tibco.com/amx/3.0/compositeext" xmlns:jdbc="http://xsd.tns.tibco.com/amf/models/sharedresource/jdbc" xmlns:property="http://ns.tibco.com/bw/property" xmlns:rest="http://xsd.tns.tibco.com/bw/models/binding/rest" xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" xmlns:scact="http://xsd.tns.tibco.com/amf/models/sca/componentType" xmlns:scaext="http://xsd.tns.tibco.com/amf/models/sca/extensions" xmi:id="_R0UUUIggEeeyPoCaXdlCAg" targetNamespace="http://tns.tibco.com/bw/composite/PartyManagement" name="PartyManagement" compositeext:version="1.0.0" compositeext:formatVersion="2">
+  <sca:service xmi:id="_YbjHAIggEeeyPoCaXdlCAg" name="PartyManagementPortType" promote="ComponentPartyManagementPortType/PartyManagementPortType">
+    <sca:interface.wsdl xmi:id="_YbjuE4ggEeeyPoCaXdlCAg" interface="http://www.cognizant.com/wsdl/PartyManagement#wsdl.interface(PartyManagementPortType)" scaext:wsdlLocation="../Resources/PartyManagement.wsdl"/>
+    <scaext:binding xsi:type="axis2:SOAPServiceBinding" xmi:id="_YbxJcIggEeeyPoCaXdlCAg" name="SOAPServiceBinding" targetNamespace="http://www.tibco.com/a8a3930722de499ba9fe9f969780c4ee/SOAPServiceBinding" portTypeQName="PartyManagement:PartyManagementPortType" transportBindingType="HTTP" attachmentStyle="SwA" modelVersion="1.2.0" portTypeWSDLLocation="platform:/resource/PartyManagement/Resources/PartyManagement.wsdl">
+      <bindingType xmi:id="_Yb33IIggEeeyPoCaXdlCAg"/>
+      <inboundConfiguration xsi:type="axis2:HttpTransportConfiguration" xmi:id="_9gY2MIghEeeyPoCaXdlCAg" endpointURI="/Insurance/PartyManagement" httpConnector="Resources.ServiceHTTPConnection"/>
+      <operationConfiguration xmi:id="_Yb5FQIggEeeyPoCaXdlCAg" operationName="GetParty" action="GetParty" actionNeeded="true">
+        <bindingType xmi:id="_Yb5FQYggEeeyPoCaXdlCAg"/>
+        <messageConfiguration xmi:id="_Yb5FQoggEeeyPoCaXdlCAg" messageQName="PartyManagement:GetParty_Request" wsdlLocation="platform:/resource/PartyManagement/Resources/PartyManagement.wsdl">
+          <messagePartConfigurations xsi:type="axis2:BodyPartConfiguration" xmi:id="_Yb5FQ4ggEeeyPoCaXdlCAg" partName="request" partElementName="PartyManagement_1:GetParty_request"/>
+          <unboundHeaderConfigurations xmi:id="_jfWysIggEeeyPoCaXdlCAg" partName="Header" messageQName="PartyManagement:Header" wsdlLocation="platform:/resource/PartyManagement/Resources/PartyManagement.wsdl"/>
+        </messageConfiguration>
+        <messageConfiguration xmi:id="_Yb5FRIggEeeyPoCaXdlCAg" messageQName="PartyManagement:GetParty_Response" messageDirection="OUTPUT" wsdlLocation="platform:/resource/PartyManagement/Resources/PartyManagement.wsdl">
+          <messagePartConfigurations xsi:type="axis2:BodyPartConfiguration" xmi:id="_Yb5FRYggEeeyPoCaXdlCAg" partName="response" partElementName="PartyManagement_1:GetParty_response"/>
+          <unboundHeaderConfigurations xmi:id="_kOgXsIggEeeyPoCaXdlCAg" partName="Header" messageQName="PartyManagement:Header" wsdlLocation="platform:/resource/PartyManagement/Resources/PartyManagement.wsdl"/>
+        </messageConfiguration>
+        <messageConfiguration xmi:id="_Yb5FRoggEeeyPoCaXdlCAg" messageQName="PartyManagement:GetParty_Fault" messageDirection="FAULT" action="fault1" wsdlLocation="platform:/resource/PartyManagement/Resources/PartyManagement.wsdl">
+          <messagePartConfigurations xsi:type="axis2:BodyPartConfiguration" xmi:id="_Yb5FR4ggEeeyPoCaXdlCAg" partName="Fault" partElementName="PartyManagement_1:GetParty_Fault"/>
+        </messageConfiguration>
+        <context xmi:id="_Yb5FSIggEeeyPoCaXdlCAg">
+          <inputMapping xmi:id="_Yb6TYIggEeeyPoCaXdlCAg" parameterName="parameter" expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:ns=&quot;http://www.cognizant.com/common/SOA_Header.xsd&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Headers&quot;/>&lt;xsl:template name=&quot;parameter&quot; match=&quot;/&quot;>&lt;xsl:copy-of select=&quot;$Headers/Header.Header/ns:Header&quot;/>&lt;/xsl:template>&lt;/xsl:stylesheet>"/>
+          <outputMapping xmi:id="_Yb6TYYggEeeyPoCaXdlCAg" parameterName="parameter1" direction="OUTPUT" expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:bwserresp=&quot;http://www.tibco.com/namespaces/tnt/binding/soap/serviceresponse&quot; xmlns:ns=&quot;http://www.cognizant.com/common/SOA_Header.xsd&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;parameter1&quot;/>&lt;xsl:template name=&quot;ResponseContext&quot; match=&quot;/&quot;>&lt;bwserresp:ServiceResponseContext>&lt;bwserresp:Headers>&lt;Header.Header>&lt;xsl:copy-of select=&quot;$parameter1&quot;/>&lt;/Header.Header>&lt;/bwserresp:Headers>&lt;/bwserresp:ServiceResponseContext>&lt;/xsl:template>&lt;/xsl:stylesheet>"/>
+          <faultMappings xmi:id="_Yb6TYoggEeeyPoCaXdlCAg" direction="FAULT" faultName="fault1"/>
+        </context>
+      </operationConfiguration>
+    </scaext:binding>
+    <scact:bindingAdjunct xmi:id="_Yb6TY4ggEeeyPoCaXdlCAg" bindingName="SOAPServiceBinding"/>
+  </sca:service>
+  <sca:service xmi:id="_EqHV0K4dEeebK_yo4OlO6w" name="party" promote="ComponentParty/party">
+    <sca:interface.wsdl xmi:id="_EqUKIK4dEeebK_yo4OlO6w" interface="http://xmlns.example.com/20171010204234PLT#wsdl.interface(party)" scaext:wsdlLocation="../Processes/partymanagement/Party.bwp"/>
+    <scaext:binding xsi:type="rest:RestServiceBinding" xmi:id="_EqqvcK4dEeebK_yo4OlO6w" name="RestService" path="/party/{ssn}" docBasePath="http://localhost:7777/PartyManagement" docResourcePath="Party" basePath="/" connector="Resources.ServiceHTTPConnection" structuredData="true" technologyVersion="2.0" implementation="Service Descriptors/partymanagement.Party-Party.json">
+      <operation xmi:id="_EqwPAK4dEeebK_yo4OlO6w" operationName="get" nickname="get-party" httpMethod="GET" responseStyle="element" requestStyle="element">
+        <clientFormat>json</clientFormat>
+        <clientFormat>xml</clientFormat>
+        <clientRequestFormat>json</clientRequestFormat>
+      </operation>
+      <parameters xmi:id="_boKl8K4dEeebK_yo4OlO6w">
+        <parameterMapping xmi:id="_boKl8a4dEeebK_yo4OlO6w" parameterName="ssn" parameterType="Path" required="true"/>
+      </parameters>
+    </scaext:binding>
+    <scact:bindingAdjunct xmi:id="_Eqw2EK4dEeebK_yo4OlO6w" bindingName="RestService"/>
+  </sca:service>
+  <sca:property xmi:id="_R0VicYggEeeyPoCaXdlCAg" name="BW.APPNODE.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R0VicoggEeeyPoCaXdlCAg" name="BW.DEPLOYMENTUNIT.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R0Vic4ggEeeyPoCaXdlCAg" name="BW.HOST.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R0VidYggEeeyPoCaXdlCAg" name="BW.DEPLOYMENTUNIT.VERSION" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R0Vid4ggEeeyPoCaXdlCAg" name="BW.MODULE.VERSION" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R0VieIggEeeyPoCaXdlCAg" name="BW.MODULE.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_SdsogIggEeeyPoCaXdlCAg" name="ResourcesPartyDBConnection" type="jdbc:JdbcDataSource" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_L4cDYIguEeedsO_Wz8RSfg" name="BW.CLOUD.PORT" type="XMLSchema:int" scalable="true"/>
+  <sca:property xmi:id="_R7fTUIggEeeyPoCaXdlCAg" name="GetParty/Resource/JDBC/JDBCTimeout" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R7f6YIggEeeyPoCaXdlCAg" name="GetParty/Resource/JDBC/JDBCURL" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R7f6YYggEeeyPoCaXdlCAg" name="GetParty/Resource/JDBC/Username" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R7f6YoggEeeyPoCaXdlCAg" name="GetParty/Resource/JDBC/Password" type="property:password" scaext:simpleValue="#!XIfDFlF+bE1//fu4JCB+Ug==" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R_AhYIggEeeyPoCaXdlCAg" name="GetParty/Resource/JDBC/JDBCTimeout0" type="XMLSchema:int" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R_RnIIggEeeyPoCaXdlCAg" name="GetParty/Resource/HTTP/HostName" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_R_RnIYggEeeyPoCaXdlCAg" name="GetParty/Resource/HTTP/Port" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_SBzWsIggEeeyPoCaXdlCAg" name="GetParty/Resource/HTTP/Port0" type="XMLSchema:int" publicAccess="true" scalable="true"/>
+  <sca:component xmi:id="_YbfcoIggEeeyPoCaXdlCAg" name="ComponentPartyManagementPortType" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_YbfcoYggEeeyPoCaXdlCAg" processName="partymanagement.PartyManagementPortType"/>
+    <sca:service xmi:id="_YbgDsIggEeeyPoCaXdlCAg" name="PartyManagementPortType">
+      <sca:interface.wsdl xmi:id="_YbgDsYggEeeyPoCaXdlCAg" interface="http://www.cognizant.com/wsdl/PartyManagement#wsdl.interface(PartyManagementPortType)" scaext:wsdlLocation="../Resources/PartyManagement.wsdl"/>
+    </sca:service>
+  </sca:component>
+  <sca:component xmi:id="_Ep7voK4dEeebK_yo4OlO6w" name="ComponentParty" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_Ep7voa4dEeebK_yo4OlO6w" processName="partymanagement.Party"/>
+    <sca:service xmi:id="_EqCdUK4dEeebK_yo4OlO6w" name="party">
+      <sca:interface.wsdl xmi:id="_EqDrcK4dEeebK_yo4OlO6w" interface="http://xmlns.example.com/20171010204234PLT#wsdl.interface(party)" scaext:wsdlLocation="../Processes/partymanagement/Party.bwp"/>
+    </sca:service>
+  </sca:component>
+</sca:composite>

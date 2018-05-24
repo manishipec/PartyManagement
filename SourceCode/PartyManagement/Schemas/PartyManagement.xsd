@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:tns="http://www.cognizant.com/xsd/PartyManagement" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.cognizant.com/xsd/PartyManagement">
+	<xsd:complexType name="AccountIdGroup">
+		<xsd:sequence>
+			<xsd:element name="AccountId" type="xsd:string"/>
+			<xsd:element name="AccountIdTypeCode" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="AccountIdSystemCode" type="xsd:string"/>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="AccountPartyIdGroup" type="tns:AccountPartyIdGroup"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccountIds">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="AccountIdGroup" type="tns:AccountIdGroup"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccountPartyIdGroup">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="AccountPartyId" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="AccountPartyIdTypeCode" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>1 = PFS CDL External  Id. 2 = RPS Participant Id.,  Other values to be added as required.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="ACORD_PRIVATE_CODE">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Definition>
+					<p>1000000000 = Blue Dot in CarrierApptStatus (OLI_LU_PROSTAT_TC).  Note this value was assigned incorrectly.  It should have been 1000600000.</p>
+				</Definition>
+			</xsd:documentation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:nonNegativeInteger">
+			<xsd:minInclusive value="1000000000"/>
+			<xsd:maxInclusive value="1999999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ACORD_TYPE_CODE">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Definition>
+					<p>Basis for all lookups. This is usually further restricted to the allowable set of enumerations.</p>
+				</Definition>
+			</xsd:documentation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:nonNegativeInteger"/>
+	</xsd:simpleType>
+	<xsd:element name="CusipNo" type="tns:CusipNo"/>
+	<xsd:simpleType name="CusipNo">
+		<xsd:restriction base="xsd:string">
+			<xsd:length fixed="true" value="9"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="GetParty_request">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="PartySelectionCriteria" type="tns:PartySelectionCriteria"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="GetParty_response">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element maxOccurs="unbounded" minOccurs="0" name="Party">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="PartyTypeCode" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>0 = Unknown; 1 = Person; 2 = Organization</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element minOccurs="0" ref="tns:GovtID"/>
+							<xsd:element minOccurs="0" ref="tns:GovtIDTC"/>
+							<xsd:element minOccurs="0" name="PartyIds" type="tns:PartyIds"/>
+							<xsd:element minOccurs="0" name="FullName" type="xsd:string"/>
+							<xsd:element minOccurs="0" name="Person">
+								<xsd:annotation>
+									<xsd:documentation>May be present only if PartyTypeCode = 1</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element minOccurs="0" name="PersonId" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Unique identifier from the source system</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="FirstName" type="xsd:string"/>
+										<xsd:element minOccurs="0" name="MiddleName" type="xsd:string"/>
+										<xsd:element name="LastName" type="xsd:string"/>
+										<xsd:element minOccurs="0" name="BirthDate" type="xsd:string"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element minOccurs="0" name="Accounts">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element maxOccurs="unbounded" minOccurs="0" name="Account">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="AccountIds" type="tns:AccountIds"/>
+										<xsd:element minOccurs="0" name="AccountName" type="xsd:string"/>
+										<xsd:element name="BalanceAmt" type="xsd:decimal"/>
+										<xsd:element minOccurs="0" name="TotalLoanBalanceAmt" type="xsd:decimal"/>
+
+										<!-- Added 2015-10-26 for balance effective date to response schema and send it sales force for display  -->
+										<xsd:element minOccurs="0" name="BalanceEffectiveDate" type="xsd:date"/>
+										<xsd:element minOccurs="0" ref="tns:InvestmentAllocations"/>
+										<xsd:element minOccurs="0" name="TerminatingInd" type="xsd:boolean"/>
+										<xsd:element minOccurs="0" name="InclusionInd" type="xsd:boolean"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element minOccurs="0" name="Thresholds" type="tns:Thresholds"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="GovtID" type="xsd:string"/>
+	<xsd:element name="GovtIDTC">
+		<xsd:complexType>
+			<xsd:attribute name="tc" type="xsd:int">
+				<xsd:annotation>
+					<xsd:documentation>1 = SSN; 2 = TaxId;  Required if GovtID is present.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InvestmentAllocation" type="tns:InvestmentAllocation"/>
+	<xsd:complexType name="InvestmentAllocation">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" ref="tns:InvestmentOptionId"/>
+			<xsd:element minOccurs="0" ref="tns:InvestmentOptionCusipNo"/>
+			<xsd:element minOccurs="0" ref="tns:InvestmentOptionClassId"/>
+			<xsd:element minOccurs="0" ref="tns:InvestmentOptionName"/>
+			<xsd:element minOccurs="0" ref="tns:InvestmentAllocationPct"/>
+			<xsd:element minOccurs="0" ref="tns:InvestmentAllocationAmt"/>
+			<xsd:element minOccurs="0" name="InvestmentAllocationUpdateTS" type="xsd:dateTime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="InvestmentAllocationAmt" type="xsd:decimal"/>
+	<xsd:element name="InvestmentAllocationPct" type="tns:Percent"/>
+	<xsd:element name="InvestmentAllocations" type="tns:InvestmentAllocations"/>
+	<xsd:complexType name="InvestmentAllocations">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" ref="tns:InvestmentAllocationsByMoneyType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="InvestmentAllocationsByMoneyType" type="tns:InvestmentAllocationsByMoneyType"/>
+	<xsd:complexType name="InvestmentAllocationsByMoneyType">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="InvestmentAllocationsUpdateTS" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="MoneyTypeCode" type="xsd:string"/>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" ref="tns:InvestmentAllocation"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="InvestmentOptionClassId" type="xsd:string"/>
+	<xsd:element name="InvestmentOptionCusipNo" type="tns:CusipNo"/>
+	<xsd:element name="InvestmentOptionId" type="xsd:string"/>
+	<xsd:element name="InvestmentOptionName" type="xsd:string"/>
+	<xsd:complexType name="OLI_LU_BOOLEAN">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Definition>
+					<p>The ACORD Life data model uses the datatype 'boolean' to encode</p>
+					<p>True/False information. The data type is actually a binary integer</p>
+					<p>where "zero," means False and "not zero" means True.</p>
+					<p/>
+					<p>We will follow the type code model (see how to handle TypeCodes</p>
+					<p>section), and use a tag attribute to represent the binary value of the Boolean</p>
+					<p>data: &lt;/p&gt;</p>
+					<p>PrefPhone tc="0"&gt;False&lt;/PrefPhone</p>
+					<p/>
+					<p>The set of allowable Boolean values is "0" (False) and "1" (True).</p>
+					<p/>
+				</Definition>
+				<Description>
+					<p>Boolean</p>
+				</Description>
+			</xsd:documentation>
+			<xsd:appinfo>
+				<RevisionHistory NewRevision="No">
+					<LastRevision date="2000-10-01" ver="2.3"/>
+				</RevisionHistory>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="tc" type="tns:OLI_LU_BOOLEAN_TC" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="OLI_LU_BOOLEAN_TC">
+		<xsd:restriction base="tns:ACORD_TYPE_CODE">
+			<xsd:enumeration value="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>False</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo>
+						<RevisionHistory NewRevision="No">
+							<LastRevision date="2000-10-01" ver="2.3"/>
+						</RevisionHistory>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>True</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo>
+						<RevisionHistory NewRevision="No">
+							<LastRevision date="2000-10-21" ver="2.3"/>
+						</RevisionHistory>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OLI_LU_GOVTIDTC">
+		<xsd:annotation>
+			<xsd:documentation>Define to provide a list of available id reference type</xsd:documentation>
+			<xsd:documentation>OLI_GOVTID_SSN - 1</xsd:documentation>
+			<xsd:documentation>OLI_GOVTID_TID - 2</xsd:documentation>
+			<xsd:documentation>OLI_GOVTID_SIN - 3</xsd:documentation>
+			<xsd:documentation>OLI_GOVTID_USNONRESTID - 9</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:nonNegativeInteger">
+			<xsd:enumeration value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="OLI_LU_PROSTAT">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Description>
+					<p>Producer Status</p>
+				</Description>
+			</xsd:documentation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="tc" type="tns:OLI_LU_PROSTAT_TC" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="OLI_LU_PROSTAT_TC">
+		<xsd:restriction base="tns:ACORD_TYPE_CODE">
+			<xsd:enumeration value="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>Unknown</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo>
+						<RevisionHistory NewRevision="No">
+							<LastRevision date="2000-10-02" ref="00-613" ver="2.3"/>
+						</RevisionHistory>
+						<SublistName>Common</SublistName>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>Active</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>Inactive</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>Pending approval.</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo>
+						<RevisionHistory NewRevision="No">
+							<LastRevision date="2004-01-07" ref="03-2.03.18" ver="2.09.90"/>
+						</RevisionHistory>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="4">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>Approval rejected.</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo>
+						<RevisionHistory NewRevision="No">
+							<LastRevision date="2004-01-07" ref="03-2.03.18" ver="2.09.90"/>
+						</RevisionHistory>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="6">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Definition>
+							<p>A producer that moves from one agency to another and the original agency does not release the block of business. A new appointment is assigned for the new agency. The old appointment is marked as transferred out . The producer still provides servicing under the transferred out appointment.</p>
+						</Definition>
+						<Description>
+							<p>Transferred Out</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo>
+						<RevisionHistory NewRevision="No">
+							<LastRevision date="2011-06-17" ref="11-1.078.02" ver="2.24.90"/>
+						</RevisionHistory>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="1000000000">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>Blue Dot.  Note this value was assigned incorrectly.  It should have been 1000600000.</p>
+						</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2147483647">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>
+							<p>Other</p>
+						</Description>
+					</xsd:documentation>
+					<xsd:appinfo>
+						<RevisionHistory NewRevision="No">
+							<LastRevision date="2000-10-02" ref="00-613" ver="2.3"/>
+						</RevisionHistory>
+						<SublistName>Common</SublistName>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PartyIdGroup">
+		<xsd:sequence>
+			<xsd:element name="PartyId" type="xsd:string"/>
+			<xsd:element name="PartyIdTypeCode" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>1 = PFS CDL External  Id. 3 = Record Keeping System ID, 4 = NC Client ID . Other values to be added as required.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element minOccurs="0" name="PartyIdSystemCode" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartyIds">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="PartyIdGroup" type="tns:PartyIdGroup"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartySelectionCriteria">
+		<xsd:sequence>
+			<xsd:element ref="tns:PartyTypeCode"/>
+			<xsd:element minOccurs="0" ref="tns:GovtID"/>
+			<xsd:element minOccurs="0" ref="tns:GovtIDTC"/>
+			<xsd:element minOccurs="0" name="PartyIds" type="tns:PartyIds"/>
+			<xsd:element minOccurs="0" name="AccountIds" type="tns:AccountIds"/>
+			<xsd:element minOccurs="0" name="PersonSelectionCriteria" type="tns:PersonSelectionCriteria">
+				<xsd:annotation>
+					<xsd:documentation>May be present only if PartyTypeCode = 1</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PartyTypeCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>0 = Unknown; 1 = Person; 2 = Organization</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="Percent">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PersonSelectionCriteria">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="PersonId" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Unique identifier from the source system</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element minOccurs="0" name="FirstName" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="LastName" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="BirthDate" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="SSN6to9" type="tns:SocialSecurityNumber6to9"/>
+			<xsd:element minOccurs="0" name="PhoneNumber" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="SocialSecurityNumber6to9">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="4"/>
+			<xsd:maxLength value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="Thresholds">
+		<xsd:sequence>
+			<xsd:element name="PFS_MinBalanceAmt" type="xsd:decimal"/>
+			<xsd:element name="PFS_MaxBalanceAmt" type="xsd:decimal"/>
+			<xsd:element name="RCG_MinBalanceAmt" type="xsd:decimal"/>
+			<xsd:element name="RCG_MaxBalanceAmt" type="xsd:decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="GetParty_Fault">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:Fault"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Fault">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element minOccurs="0" ref="tns:ErrorCode"/>
+				<xsd:element minOccurs="0" ref="tns:ErrorMessage"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ErrorCode" type="xsd:string"/>
+	<xsd:element name="ErrorMessage" type="xsd:string"/>
+</xsd:schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:ns0="http://www.cognizant.com/xsd/PartyManagement" xmlns:tns="http://xmlns.example.com/1503016853019/Processes/GetParty/Generate-Error-Fault-GetParty_Fault.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://xmlns.example.com/1503016853019/Processes/GetParty/Generate-Error-Fault-GetParty_Fault.xsd">
+    <xs:import namespace="http://www.cognizant.com/xsd/PartyManagement" schemaLocation="../Schemas/PartyManagement.xsd"/>
+    <xs:complexType name="GetParty_Fault">
+        <xs:all>
+            <xs:element name="Fault">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element ref="ns0:GetParty_Fault"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+    <xs:element name="GetParty_Fault" type="tns:GetParty_Fault"/>
+</xs:schema>

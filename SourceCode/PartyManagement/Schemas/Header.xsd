@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns="http://www.cognizant.com/common/SOA_Header.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.cognizant.com/common/SOA_Header.xsd">
+	<xs:element name="Header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="MessageUID"/>
+				<xs:element minOccurs="0" ref="MessageTimeStamp"/>
+				<xs:element minOccurs="0" ref="SourceApplication"/>
+				<xs:element minOccurs="0" ref="OperationName"/>
+				<xs:element minOccurs="0" ref="ServiceName"/>
+				<xs:element minOccurs="0" ref="Timeout"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MessageUID" type="xs:string"/>
+	<xs:element name="SourceApplication" type="xs:string"/>
+	<xs:element name="OperationName" type="xs:string"/>
+	<xs:element name="ServiceName" type="xs:string"/>
+	<xs:element name="MessageTimeStamp" type="xs:string"/>
+	<xs:element name="Timeout" type="xs:string"/>
+	<xs:complexType name="HeaderType">
+		<xs:sequence>
+			<xs:element ref="Header"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
